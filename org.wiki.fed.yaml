@@ -1,0 +1,57 @@
+---
+id: org.wiki.fed
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+
+add-extensions:
+  org.freedesktop.Sdk.Extension.node20:
+    directory: lib/node
+    version: '23.08'
+
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node20
+
+build-options:
+  append_path: "/usr/lib/sdk/node20/bin"
+  env:
+    NPM_CONFIG_LOGLEVEL: info
+
+command: run.sh
+finish-args:
+  - --share=network
+  - --filesystem=home
+metadata: metadata
+
+modules:
+  - name: app
+    buildsystem: simple
+    build-options:
+      env:
+        XDG_CACHE_HOME: /run/build/app/flatpak-node/cache
+        npm_config_cache: /run/build/app/flatpak-node/npm-cache
+        npm_config_nodedir: /usr/lib/sdk/node20
+        npm_config_offline: 'true'
+    build-commands:
+      - node --version
+      - npm --version
+      - npm install --no-save
+      - cp -r ./ /app/
+    sources:
+      - type: archive
+        url: https://registry.npmjs.org/wiki/-/wiki-0.35.1.tgz
+        sha256: 3da02fdf80f281745c137920b5f584630ad54187ee29210bdeb7774d5a63c22c
+      - type: file
+        path: package/package-lock.json
+      - generated-sources.json
+  - name: script
+    buildsystem: simple
+    build-commands:
+      - install -D run.sh /app/bin/run.sh
+    sources:
+      - type: file
+        path: bin/run.sh
+  - name: node
+    buildsystem: simple
+    build-commands:
+      - mkdir -p /app/lib/node
