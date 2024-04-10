@@ -1,6 +1,6 @@
 # Flatpak manifest for Federated Wiki
 
-Another way of distributing Federated Fiki. This time with Flatpak.
+Another way of distributing Federated Wiki. This time with Flatpak.
 
 ## Prerequisites
 
