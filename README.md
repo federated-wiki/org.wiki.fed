@@ -58,3 +58,16 @@ Clean all generated files with:
 ```sh
 bin/clean.sh
 ```
+
+## Authors
+
+- Jon Richter
+
+## License
+
+MIT license. See provided [LICENSE.txt](LICENSE.txt) file for details.
+
+## Copyright
+
+© 2024 Ecobytes e.V., Jon Richter
+
