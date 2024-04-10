@@ -16,6 +16,8 @@ We need to prepopulate the NPM cache with distribution artifacts from all depend
 bin/prepare.sh
 ```
 
+Exemplary files come with this repository for convenience.
+
 ## Build and install
 
 Build the application into `build-dir` with using the `org.wiki.fed.yaml` manifest.
