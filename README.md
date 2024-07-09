@@ -6,11 +6,26 @@ Another way of distributing Federated Wiki. This time with Flatpak.
 
 - flatpak-builder
 - A local Node.JS instance is used to generate a `package-lock.json` from the distributed Wiki tarball found on NPM
-- You will need to clone and install [flatpak-node-generator](https://github.com/flatpak/flatpak-builder-tools/tree/master/node) to generate `generated-sources.json`
+- You will need to clone and install [flatpak-node-generator](https://github.com/flatpak/flatpak-builder-tools/tree/master/node) to a local Python environment shared with this repository to generate `generated-sources.json`
+
+This example environment uses `pyenv` and a `.tool-versions` file to specify an environment for a repository.
+
+Run these commands once:
+
+```sh
+pyenv install 3.12.4
+pyenv virtualenv 3.12.4 org.wiki.fed-3.12.4
+```
+
+Run this command once per repository, theirs and ours:
+
+```sh
+pyenv local org.wiki.fed-3.12.4
+```
 
 ## Prepare
 
-We need to prepopulate the NPM cache with distribution artifacts from all dependencies named in `package.json`.
+We need to prepopulate the NPM cache with distribution artifacts from all dependencies named in `package.json`, plus collect metadata for the `flatpak-builder` in `generated-sources.json`.
 
 ```sh
 bin/prepare.sh
@@ -33,10 +48,11 @@ flatpak-builder --user --install --force-clean build-dir org.wiki.fed.yaml
 To get started quickly, you can prepare a simple configuration for your wiki.
 
 ```sh
- cat <<<"{                   
-  "security_type": "friends",
-  "cookieSecret": "$(pwgen -n 64 1 | sed -z "s/\n//g")",
-  "session_duration": 365
+mkdir -p $HOME/.wiki
+cat <<<"{
+  \"security_type\": \"friends\",
+  \"cookieSecret\": \"$(pwgen -n 64 1 | sed -z "s/\n//g")\",
+  \"session_duration\": 365
 }
 " > $HOME/.wiki/config.json
 ```
@@ -70,4 +86,3 @@ MIT license. See provided [LICENSE.txt](LICENSE.txt) file for details.
 ## Copyright
 
 © 2024 Ecobytes e.V., Jon Richter
-
