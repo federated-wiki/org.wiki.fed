@@ -39,8 +39,8 @@ modules:
       - cp -r ./ /app/
     sources:
       - type: archive
-        url: https://registry.npmjs.org/wiki/-/wiki-0.35.1.tgz
-        sha256: 3da02fdf80f281745c137920b5f584630ad54187ee29210bdeb7774d5a63c22c
+        url: https://registry.npmjs.org/wiki/-/wiki-0.36.1.tgz
+        sha256: 011f6bd5d7402194e2acb5a117017da23d7cfe37a6dd01e872d0b605d0700a20
       - type: file
         path: package-lock.json
       - generated-sources.json
